@@ -3,20 +3,16 @@ package centcom
 import (
 	"fmt"
 	"strconv"
-	"github.com/synw/centcom/ws"
+	//"github.com/synw/centcom/ws"
 	"github.com/synw/centcom/state"
 )
 
 
-func New(host string, port int, key string) *ws.Cli {
-	return ws.NewClient(host, port, key)
+func New(host string, port int, key string) *Cli {
+	return NewClient(host, port, key)
 }
 
-func Connect(cli *ws.Cli) (*ws.Cli, error) {
-	return ws.Connect(cli)
-}
-
-func Disconnect(cli *ws.Cli) {
+func Disconnect(cli *Cli) {
 	cli.Conn.Close()
 	if state.Verbosity > 0 {
 		msg := "Disconnected from "+cli.Host
