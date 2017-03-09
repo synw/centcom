@@ -34,7 +34,7 @@ for msg := range(cli.Channels) {
 }()
    ```
    
-Publish into a channel using client drivers (channel has to be set `public=true` in Centrifugo's config):
+Publish into a channel using client drivers (the namespace has to be set `public=true` in Centrifugo's config):
 
    ```go
 payload := []int{1}
@@ -78,6 +78,6 @@ Check the [examples](https://github.com/synw/centcom/tree/master/examples)
 
 `cli.Unsuscribe(channel string)`: unsubscribe to a channel
 
-`cli.Publish(channel string, payload interface{})`: publish into a channel using client drivers4
+`cli.Publish(channel string, payload interface{})`: publish into a channel using client drivers 
 
 `cli.Http` is a *gocent.Client with all its method: check the [Gocent API](https://godoc.org/github.com/centrifugal/gocent)
