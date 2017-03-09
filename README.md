@@ -52,7 +52,7 @@ dataBytes, err := json.Marshal(d)
 if err != nil {
 	fmt.Println(err)
 }
-ok, err := cli.Http.Publish(channel, dataBytes)
+ok, err := cli.Http.Publish("$somechannel", dataBytes)
 if err != nil {
 	fmt.Println(err, ok)
 }

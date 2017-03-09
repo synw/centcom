@@ -3,7 +3,6 @@ package centcom
 import (
 	"fmt"
 	"strconv"
-	//"github.com/synw/centcom/ws"
 	"github.com/synw/centcom/state"
 )
 
