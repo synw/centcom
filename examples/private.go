@@ -10,7 +10,7 @@ import (
 func main() {
 	host := "localhost"
 	port := 8001
-	key := "238a3fd4-71c9-4eb1-9995-914b235efef1"
+	key := "secret_key"
 	// set options
 	centcom.SetVerbosity(2)
 	
