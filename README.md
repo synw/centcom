@@ -81,3 +81,20 @@ Check the [examples](https://github.com/synw/centcom/tree/master/examples)
 `cli.Publish(channel string, payload interface{})`: publish into a channel using client drivers 
 
 `cli.Http` is a *gocent.Client with all its method: check the [Gocent API](https://godoc.org/github.com/centrifugal/gocent)
+
+#### The cli object:
+
+   ```go
+type Cli struct {
+	Host string
+	Port int
+	Key string
+	Http *gocent.Client
+	Conn centrifuge.Centrifuge
+	SubEvents *centrifuge.SubEventHandler
+	Subs map[string]centrifuge.Sub
+	Channels chan *Msg
+	HttpOk bool
+	IsConnected bool
+}
+   ```
