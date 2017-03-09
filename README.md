@@ -82,7 +82,7 @@ Check the [examples](https://github.com/synw/centcom/tree/master/examples)
 
 `cli.Http` is a *gocent.Client with all its method: check the [Gocent API](https://godoc.org/github.com/centrifugal/gocent)
 
-#### The cli object:
+#### Data structures:
 
    ```go
 type Cli struct {
@@ -96,5 +96,11 @@ type Cli struct {
 	Channels chan *Msg
 	HttpOk bool
 	IsConnected bool
+}
+
+type Msg struct {
+	UID	string
+	Channel string
+	Payload interface{}
 }
    ```
