@@ -19,7 +19,7 @@ defer centcom.Disconnect(cli)
 Suscribe and listen to a channel:
 
    ```go
-cli, err = cli.Suscribe("public:data")
+cli, err = cli.Subscribe("public:data")
 if err != nil {
 	fmt.Println(err)
 }
@@ -74,9 +74,9 @@ Check the [examples](https://github.com/synw/centcom/tree/master/examples)
 
 `cli.CheckHttp()`: verify the server side drivers connection
 
-`cli.Suscribe(channel string)`: subscribe to a channel
+`cli.Subscribe(channel string)`: subscribe to a channel
 
-`cli.Unsuscribe(channel string)`: unsubscribe to a channel
+`cli.Unsubscribe(channel string)`: unsubscribe to a channel
 
 `cli.Publish(channel string, payload interface{})`: publish into a channel using client drivers 
 
