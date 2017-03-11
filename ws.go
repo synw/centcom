@@ -45,7 +45,7 @@ func (cli Cli) CheckHttp() (*Cli, error) {
 	return &cli, nil
 }
 
-func (cli Cli) Suscribe(channel string) (*Cli, error) {
+func (cli Cli) Subscribe(channel string) (*Cli, error) {
 	sub, err := cli.Conn.Subscribe(channel, cli.SubEvents)
 	if err != nil {
 		return &cli, err
@@ -58,7 +58,7 @@ func (cli Cli) Suscribe(channel string) (*Cli, error) {
 	return &cli, nil
 }
 
-func (cli Cli) Unsuscribe(channel string) (*Cli, error) {
+func (cli Cli) Unsubscribe(channel string) (*Cli, error) {
 	sub, err := getSubscription(&cli, channel)
 	if err != nil {
 		return &cli, err		

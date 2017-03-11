@@ -34,7 +34,7 @@ func main() {
 	
 	channel := "public:data"
 	// suscribe
-	cli, err = cli.Suscribe(channel)
+	cli, err = cli.Subscribe(channel)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -65,7 +65,7 @@ func main() {
 	fmt.Printf("History for channel %s, %d messages: %v\n", channel, len(history), history)	
 	
 	// unsuscribe
-	cli, err = cli.Unsuscribe(channel)
+	cli, err = cli.Unsubscribe(channel)
 	if err != nil {
 		fmt.Println(err)
 	}

@@ -25,7 +25,7 @@ func main() {
 	defer centcom.Disconnect(cli)
 	/* suscribe. Note: this namespace must be set to public=true in the Centrifugo's config 
 	in order to suscribe to the channel */	
-	cli, err = cli.Suscribe("public:data")
+	cli, err = cli.Subscribe("public:data")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -51,7 +51,7 @@ func main() {
 	_ = cli.Publish("public:data", payload2)
 	
 	// unsuscribe
-	cli, err = cli.Unsuscribe("public:data")
+	cli, err = cli.Unsubscribe("public:data")
 	if err != nil {
 		fmt.Println(err)
 	}
