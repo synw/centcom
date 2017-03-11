@@ -16,7 +16,7 @@ if err != nil {
 defer centcom.Disconnect(cli)
    ```
    
-Suscribe and listen to a channel:
+Subscribe and listen to a channel:
 
    ```go
 cli, err = cli.Subscribe("public:data")
