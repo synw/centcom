@@ -19,7 +19,7 @@ defer centcom.Disconnect(cli)
 Subscribe and listen to a channel:
 
    ```go
-cli, err = cli.Subscribe("public:data")
+err = cli.Subscribe("public:data")
 if err != nil {
 	fmt.Println(err)
 }
