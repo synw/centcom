@@ -18,7 +18,7 @@ func main() {
 	started := time.Now()	
 	// connect
 	cli := centcom.New(host, port, key)
-	cli, err := centcom.Connect(cli)
+	err := centcom.Connect(cli)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -26,7 +26,7 @@ func main() {
 	defer centcom.Disconnect(cli)
 	
 	// verify the connection
-	cli, err = cli.CheckHttp()
+	err = cli.CheckHttp()
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -34,7 +34,7 @@ func main() {
 	
 	channel := "public:data"
 	// suscribe
-	cli, err = cli.Subscribe(channel)
+	err = cli.Subscribe(channel)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -65,7 +65,7 @@ func main() {
 	fmt.Printf("History for channel %s, %d messages: %v\n", channel, len(history), history)	
 	
 	// unsuscribe
-	cli, err = cli.Unsubscribe(channel)
+	err = cli.Unsubscribe(channel)
 	if err != nil {
 		fmt.Println(err)
 	}

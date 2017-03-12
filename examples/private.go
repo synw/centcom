@@ -17,7 +17,7 @@ func main() {
 	started := time.Now()
 	// connect
 	cli := centcom.New(host, port, key)
-	cli, err := centcom.Connect(cli)
+	err := centcom.Connect(cli)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -27,7 +27,7 @@ func main() {
 	channel := "cmd:$ch1"
 	/* suscribe. Note: this namespace must be set to public=true in the Centrifugo's config 
 	in order to suscribe to the channel */
-	cli, err = cli.Subscribe(channel)
+	err = cli.Subscribe(channel)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -53,7 +53,7 @@ func main() {
 	_ = cli.Publish(channel, payload2)
 	
 	// unsuscribe
-	cli, err = cli.Unsubscribe(channel)
+	err = cli.Unsubscribe(channel)
 	if err != nil {
 		fmt.Println(err)
 	}

@@ -17,14 +17,14 @@ func main() {
 	
 	// connect
 	cli := centcom.New(host, port, key)
-	cli, err := centcom.Connect(cli)
+	err := centcom.Connect(cli)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	defer centcom.Disconnect(cli)
 	
-	cli, err = cli.CheckHttp()
+	err = cli.CheckHttp()
 	if err != nil {
 		fmt.Println(err)
 		return

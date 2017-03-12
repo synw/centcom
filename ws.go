@@ -33,46 +33,46 @@ type Cli struct {
 	IsConnected bool
 }
 
-func (cli Cli) CheckHttp() (*Cli, error) {
+func (cli Cli) CheckHttp() error {
 	url := "http://"+cli.Host+":"+strconv.Itoa(cli.Port)
 	cli.Http = gocent.NewClient(url, cli.Key, 5*time.Second)
 	// test the http connection
 	err := checkHttpConnection(&cli)
 	if err != nil {
-		return &cli, err
+		return err
 	}
 	cli.HttpOk = true;
-	return &cli, nil
+	return nil
 }
 
-func (cli Cli) Subscribe(channel string) (*Cli, error) {
+func (cli Cli) Subscribe(channel string) error {
 	sub, err := cli.Conn.Subscribe(channel, cli.SubEvents)
 	if err != nil {
-		return &cli, err
+		return  err
 	}
 	cli.Subs[channel] = sub
 	if state.Verbosity > 1 {
 		msg := "Suscribed to channel "+channel
 		fmt.Println(ok(msg))
 	}
-	return &cli, nil
+	return nil
 }
 
-func (cli Cli) Unsubscribe(channel string) (*Cli, error) {
+func (cli Cli) Unsubscribe(channel string) error {
 	sub, err := getSubscription(&cli, channel)
 	if err != nil {
-		return &cli, err		
+		return err		
 	}
 	err = sub.Unsubscribe()
 	if err != nil {
-		return &cli, err
+		return err
 	}
 	delete(cli.Subs, channel)
 	if state.Verbosity > 1 {
 		msg := "Unsuscribed to channel "+channel
 		fmt.Println(ok(msg))
 	}	
-	return &cli, nil
+	return nil
 }
 
 func (cli Cli) Publish(channel string, payload interface{}) error {
@@ -103,7 +103,8 @@ func (cli Cli) Publish(channel string, payload interface{}) error {
 // constructors
 
 func NewClient(host string, port int, key string) *Cli {
-	var http *gocent.Client
+	addr := "http://"+host+":"+strconv.Itoa(port)
+	http := gocent.NewClient(addr, key, 5*time.Second)
 	var ws centrifuge.Centrifuge
 	var subevents *centrifuge.SubEventHandler
 	subs := make(map[string]centrifuge.Sub)
@@ -119,7 +120,7 @@ func NewMsg(uid string, channel_name string, payload interface{}) *Msg {
 
 // initialization
 
-func Connect(cli *Cli) (*Cli, error) {
+func Connect(cli *Cli) (error) {
 	// Never show secret to client of your application. Keep it on your application backend only.
 	secret := cli.Key
 	// Application user ID.
@@ -189,7 +190,7 @@ func Connect(cli *Cli) (*Cli, error) {
 	if err != nil {
 		msg := "Error connecting to "+wsURL+" : "+err.Error()
 		err = newErr(msg)
-		return cli, err
+		return err
 	}
 	
 	cli.Conn = conn
@@ -198,7 +199,7 @@ func Connect(cli *Cli) (*Cli, error) {
 		msg := "Connected to "+wsURL
 		fmt.Println(ok(msg))
 	}
-	return cli, nil
+	return nil
 
 }
 
