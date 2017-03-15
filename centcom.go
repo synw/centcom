@@ -10,7 +10,7 @@ import (
 func New(host string, port int, key string) *Cli {
 	return NewClient(host, port, key)
 }
-
+/*
 func Disconnect(cli *Cli) {
 	cli.Conn.Close()
 	if state.Verbosity > 0 {
@@ -19,7 +19,7 @@ func Disconnect(cli *Cli) {
 	}
 	close(cli.Channels)	
 }
-
+*/
 func SetVerbosity(v int) {
 	state.Verbosity = v
 }

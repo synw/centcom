@@ -100,6 +100,19 @@ func (cli Cli) Publish(channel string, payload interface{}) error {
 	return nil
 }
 
+func (cli Cli) Connect() error {
+	return connect(&cli)
+}
+
+func (cli Cli) Disconnect() {
+	cli.Conn.Close()
+	if state.Verbosity > 0 {
+		msg := "Disconnected from "+cli.Host
+		fmt.Println(msg)
+	}
+	close(cli.Channels)
+}
+
 // constructors
 
 func NewClient(host string, port int, key string) *Cli {
@@ -120,7 +133,7 @@ func NewMsg(uid string, channel_name string, payload interface{}) *Msg {
 
 // initialization
 
-func Connect(cli *Cli) (error) {
+func connect(cli *Cli) (error) {
 	// Never show secret to client of your application. Keep it on your application backend only.
 	secret := cli.Key
 	// Application user ID.

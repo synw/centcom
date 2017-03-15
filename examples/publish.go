@@ -17,12 +17,13 @@ func main() {
 	started := time.Now()	
 	// connect
 	cli := centcom.New(host, port, key)
-	err := centcom.Connect(cli)
+	//err := centcom.Connect(cli)
+	err := cli.Connect()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	defer centcom.Disconnect(cli)
+	defer cli.Disconnect()
 	/* suscribe. Note: this namespace must be set to public=true in the Centrifugo's config 
 	in order to suscribe to the channel */	
 	err = cli.Subscribe("public:data")
