@@ -203,6 +203,15 @@ func Connect(cli *Cli) (error) {
 
 }
 
+func DecodeHttpMsg(raw *gocent.Message) (*Msg, error) {
+	msg, err := decodeRawMessage(raw.Channel, raw.Data)
+	if err != nil {
+		return msg, err
+	}
+	msg.UID = raw.UID
+	return msg, nil
+}
+
 // internal methods
 
 func getSubscription(cli *Cli, channel_name string) (centrifuge.Sub, error) {
