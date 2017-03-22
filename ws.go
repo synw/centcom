@@ -266,7 +266,6 @@ func ok(msg string) string {
 }
 
 func newErr(msg string) error {
-	msg = "["+color.BoldRed("error")+"] "+msg
 	err := errors.New(msg)
 	return err
 }
