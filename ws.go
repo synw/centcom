@@ -105,7 +105,7 @@ func (cli Cli) Publish(channel string, payload interface{}) error {
 
 func NewClient(host string, port int, key string, args ...string) *Cli {
 	user := "cli"
-	if len( args > 0 ) {
+	if len(args) > 0 {
 		user = args[0]
 	}
 	addr := "http://"+host+":"+strconv.Itoa(port)
