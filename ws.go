@@ -246,14 +246,12 @@ func decodeRawMessage(channel string, raw *json.RawMessage) (*Msg, error) {
 }
 
 func decodeCentrifugeMsg(channel string, centmsg *centrifuge.Message) (*Msg, error) {
-	msg := &Msg{}
-	msg.Channel = channel
-	msg.UID = centmsg.UID
 	var err error
-	msg.Payload, err = decodeRawMessage(channel, centmsg.Data)
+	msg, err := decodeRawMessage(channel, centmsg.Data)
 	if err != nil {
 		return msg, err
 	}
+	msg.UID = centmsg.UID
 	return msg, nil
 }
 
