@@ -178,8 +178,20 @@ func Connect(cli *Cli) (error) {
 		return privateSign, nil
 	}
 	
+	onDisconnect := func(c centrifuge.Centrifuge) error {
+		fmt.Println("Disconnected")
+		err := c.Reconnect(centrifuge.DefaultBackoffReconnect)
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			fmt.Println("Reconnected")
+		}
+		return nil
+	}
+	
 	events := &centrifuge.EventHandler{
 		OnPrivateSub: onPrivateSub,
+		OnDisconnect: onDisconnect,
 	}
 
 	subevents := &centrifuge.SubEventHandler{
