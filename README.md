@@ -86,8 +86,7 @@ Check the [examples](https://github.com/synw/centcom/tree/master/examples)
 
    ```go
 type Cli struct {
-	Host string
-	Port int
+	Addr string
 	Key string
 	Http *gocent.Client
 	Conn centrifuge.Centrifuge
