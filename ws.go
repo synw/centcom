@@ -9,8 +9,6 @@ import (
 	"github.com/centrifugal/centrifugo/libcentrifugo/auth"
 	"github.com/centrifugal/gocent"
 	"github.com/synw/centcom/state"
-	//"strconv"
-	"strings"
 	"time"
 )
 
@@ -34,7 +32,7 @@ type Cli struct {
 }
 
 func (cli Cli) CheckHttp() error {
-	cli.Http = gocent.NewClient(cli.Addr, cli.Key, 5*time.Second)
+	cli.Http = gocent.NewClient("http://"+cli.Addr, cli.Key, 5*time.Second)
 	// test the http connection
 	err := checkHttpConnection(&cli)
 	if err != nil {
@@ -106,7 +104,7 @@ func NewClient(addr string, key string, args ...string) *Cli {
 	if len(args) > 0 {
 		user = args[0]
 	}
-	http := gocent.NewClient(addr, key, 5*time.Second)
+	http := gocent.NewClient("http://"+addr, key, 5*time.Second)
 	var ws centrifuge.Centrifuge
 	var subevents *centrifuge.SubEventHandler
 	subs := make(map[string]centrifuge.Sub)
@@ -196,9 +194,8 @@ func Connect(cli *Cli) error {
 		OnJoin:    onJoin,
 		OnLeave:   onLeave,
 	}
-	r := strings.NewReplacer("http://", "ws://", "https://", "ws://")
-	baseAddr := r.Replace(cli.Addr)
-	wsURL := baseAddr + "/connection/websocket"
+
+	wsURL := "ws://" + cli.Addr + "/connection/websocket"
 	conn := centrifuge.NewCentrifuge(wsURL, creds, events, centrifuge.DefaultConfig)
 
 	err := conn.Connect()
