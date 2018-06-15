@@ -1,37 +1,35 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/synw/centcom"
 	"time"
-	"encoding/json"	
-	"github.com/synw/centcom"	
 )
 
-
 func main() {
-	host := "localhost"
-	port := 8001
+	addr := "localhost:8001"
 	key := "secret_key"
 	// set options
 	centcom.SetVerbosity(2)
-	
-	started := time.Now()	
+
+	started := time.Now()
 	// connect
-	cli := centcom.New(host, port, key)
+	cli := centcom.New(addr, key)
 	err := centcom.Connect(cli)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	defer centcom.Disconnect(cli)
-	
+
 	// verify the connection
 	err = cli.CheckHttp()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	
+
 	channel := "public:data"
 	// suscribe
 	err = cli.Subscribe(channel)
@@ -40,12 +38,12 @@ func main() {
 	}
 	// listen
 	go func() {
-	fmt.Println("Listening ...")
-	for msg := range(cli.Channels) {
-		if msg.Channel == channel {
-			fmt.Println("PAYLOAD", msg.Payload, msg.UID)
+		fmt.Println("Listening ...")
+		for msg := range cli.Channels {
+			if msg.Channel == channel {
+				fmt.Println("PAYLOAD", msg.Payload, msg.UID)
+			}
 		}
-	}
 	}()
 
 	// publish http
@@ -62,13 +60,13 @@ func main() {
 	presence, _ := cli.Http.Presence(channel)
 	fmt.Printf("Presense for channel %s: %v\n", channel, presence)
 	history, _ := cli.Http.History(channel)
-	fmt.Printf("History for channel %s, %d messages: %v\n", channel, len(history), history)	
-	
+	fmt.Printf("History for channel %s, %d messages: %v\n", channel, len(history), history)
+
 	// unsuscribe
 	err = cli.Unsubscribe(channel)
 	if err != nil {
 		fmt.Println(err)
 	}
-	
-	fmt.Println(time.Since(started))	
+
+	fmt.Println(time.Since(started))
 }
